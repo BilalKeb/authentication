@@ -5,13 +5,23 @@ const session = require("express-session")
 const passport = require("./config/passport")
 const cors = require("cors")
 
+
 const authRoutes = require("./routes/auth")
 const adminRoutes = require("./routes/admin")
+const userRoutes = require("./routes/user")
+
 
 app.use(cors({
   origin: "http://localhost:3000",
   credentials: true
 }))
+
+app.use(express.static('public'))
+// recuper variable dynamique de ma route id 
+// chercher utilisateur avec l'id
+// construire nom du fichier = nom de l'utiliateur + la date du jour+ .extension ex:jpg
+// changer le nom du fichier 
+
 
 app.use(express.json())
 
@@ -26,6 +36,7 @@ app.use(passport.session())
 
 app.use("/auth", authRoutes)
 app.use("/admin", adminRoutes)
+app.use ("/user",  userRoutes)
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`)
